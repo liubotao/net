@@ -1,0 +1,33 @@
+CXX      = g++
+INCPATH  = -I.
+CXXFLAGS = -std=c++0x -pipe -Wall -W -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 --param=ssp-buffer-size=4 -mtune=generic 
+LIBS     = $(SUBLIBS)  /usr/local/lib/libevent.a /usr/local/lib/libevent_pthreads.a -lrt -pthread /usr/local/lib/libjemalloc.a
+
+HEADERS = src/tcpsocket.h 
+        
+SOURCES = src/tcpsocket.cc \
+		  src/eventloop.cc \
+		  src/thread.cc \
+		  src/iobuffer.cc \
+
+OBJECTS = tmp/tcpsocket.o \
+		  tmp/eventloop.o \
+		  tmp/thread.o \
+		  tmp/iobuffer.o \
+
+loadtest:src/loadtest.cc $(OBJECTS)
+	 $(CXX) -o loadtest src/loadtest.cc  $(OBJECTS) $(LIBS)
+
+tmp/tcpsocket.o:src/tcpsocket.cc
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/tcpsocket.o src/tcpsocket.cc
+
+tmp/eventloop.o:src/eventloop.cc
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/eventloop.o src/eventloop.cc
+
+tmp/thread.o:src/thread.cc
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/thread.o src/thread.cc
+
+tmp/iobuffer.o:src/iobuffer.cc
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/iobuffer.o src/iobuffer.cc
+
+

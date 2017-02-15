@@ -11,7 +11,9 @@ SOURCES = src/tcpsocket.cc \
 		  src/thread.cc \
 		  src/buffer.cc \
 		  src/echoserver.cc \
-          src/main.cc
+		  src/file_util.cc \
+          src/config.cc \
+		  src/main.cc
 
 OBJECTS = tmp/tcpsocket.o \
 		  tmp/tcpserver.o \
@@ -19,6 +21,8 @@ OBJECTS = tmp/tcpsocket.o \
 		  tmp/thread.o \
 		  tmp/buffer.o \
 		  tmp/echoserver.o \
+		  tmp/file_util.o \
+		  tmp/config.o \
 		  tmp/main.o
 
 main:src/main.cc $(OBJECTS)
@@ -30,6 +34,13 @@ clean:
 
 tmp/main.o:src/main.cc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/main.o src/main.cc
+
+
+tmp/config.o:src/config.cc
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/config.o src/config.cc
+
+tmp/file_util.o:src/file_util.cc
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/file_util.o src/file_util.cc
 
 tmp/tcpsocket.o:src/tcpsocket.cc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/tcpsocket.o src/tcpsocket.cc

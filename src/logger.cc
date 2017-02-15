@@ -35,7 +35,7 @@ void Logger::error(const char* format, ...) {
     va_list marker;
     va_start(marker, format);
     vsprintf(buffer, format, marker);
-     va_end(marker);
+    va_end(marker);
 
     defaultLogger_->output(Logger::Error, buffer);
 }
